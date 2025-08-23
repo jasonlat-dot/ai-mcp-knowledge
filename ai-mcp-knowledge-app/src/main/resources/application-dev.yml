@@ -39,19 +39,19 @@ thread:
         block-queue-size: 5000
         policy: CallerRunsPolicy
 
-knowledge:
-  store:
-    path: /data/knowledge
-#    path: './git-cloned-repo/knowledge'
+
 spring:
   main:
     web-application-type: none
   # ollama ai
   ai:
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:/config/win-mcp-server-config.json
     openai:
-      enabled: false
-      base-url: url
-      api-key: apiKey
+      base-url: https://apis.itedus.cn/
+      api-key: api-key
       embedding-model: text-embedding-ada-002 # 效果好一些
       vector-table-name: vector_store_openai
       embedding:
