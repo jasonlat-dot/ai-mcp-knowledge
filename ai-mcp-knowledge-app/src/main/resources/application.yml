@@ -1,0 +1,9 @@
+#file: noinspection SpringBootApplicationYaml
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ai-mcp-knowledge
+
+
