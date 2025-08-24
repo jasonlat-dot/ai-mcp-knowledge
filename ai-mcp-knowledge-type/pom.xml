@@ -7,10 +7,10 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>ai-mcp-knowledge-trigger</artifactId>
+    <artifactId>ai-mcp-knowledge-type</artifactId>
     <packaging>jar</packaging>
 
-    <name>ai-mcp-knowledge-trigger</name>
+    <name>ai-mcp-knowledge-type</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -18,25 +18,19 @@
     </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jasonlat</groupId>
-            <artifactId>ai-mcp-knowledge-type</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
     </dependencies>

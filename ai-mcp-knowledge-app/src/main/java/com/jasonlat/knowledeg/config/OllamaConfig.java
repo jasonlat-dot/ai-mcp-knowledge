@@ -3,12 +3,11 @@ package com.jasonlat.knowledeg.config;
 import io.micrometer.observation.ObservationRegistry;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.DefaultChatClientBuilder;
-import org.springframework.ai.chat.client.observation.ChatClientObservationConvention;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
 import org.springframework.ai.ollama.api.OllamaOptions;
-import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,9 +60,19 @@ public class OllamaConfig {
                 .build();
     }
 
-    @Bean("ollamaChatClientBuilder")
-    public ChatClient.Builder chatClientBuilder(OllamaChatModel ollamaChatModel) {
-        return new DefaultChatClientBuilder(ollamaChatModel, ObservationRegistry.NOOP, (ChatClientObservationConvention) null);
+
+    @Value("${spring.ai.ollama.chat.options.model}")
+    private String chatModel;
+    @Bean(name = "ollamaChatClient")
+    public ChatClient chatClient(OllamaChatModel ollamaChatModel, ToolCallbackProvider tools) {
+        DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(ollamaChatModel, ObservationRegistry.NOOP, null);
+        return defaultChatClientBuilder
+                .defaultTools(tools)
+                .defaultOptions(OllamaOptions.builder()
+                        .model(chatModel)
+                        .build())
+                .build();
     }
+
 
 }

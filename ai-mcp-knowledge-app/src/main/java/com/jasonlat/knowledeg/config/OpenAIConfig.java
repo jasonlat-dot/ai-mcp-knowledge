@@ -6,8 +6,10 @@ import org.springframework.ai.chat.client.DefaultChatClientBuilder;
 import org.springframework.ai.chat.client.observation.ChatClientObservationConvention;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
@@ -66,9 +68,19 @@ public class OpenAIConfig {
                 .build();
     }
 
-    @Bean("openAiChatClientBuilder")
-    public ChatClient.Builder chatClientBuilder(OpenAiChatModel openAiChatModel) {
-        return new DefaultChatClientBuilder(openAiChatModel, ObservationRegistry.NOOP, (ChatClientObservationConvention) null);
+
+    @Value("${spring.ai.openai.chat.options.model}")
+    private String chatModel;
+    @Bean(name = "openaiChatClient")
+    public ChatClient chatClient(OpenAiChatModel openAiChatModel, ToolCallbackProvider tools) {
+        DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(openAiChatModel, ObservationRegistry.NOOP, null);
+        return defaultChatClientBuilder
+                .defaultTools(tools)
+                .defaultOptions(OpenAiChatOptions.builder()
+                        .model(chatModel)
+                        .build())
+                .build();
     }
+
 
 }

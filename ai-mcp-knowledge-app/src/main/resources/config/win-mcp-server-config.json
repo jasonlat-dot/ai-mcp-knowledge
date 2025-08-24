@@ -19,6 +19,18 @@
         "-jar",
         "C:\\Users\\Administrator\\.m2\\repository\\com\\jasonlat\\computer-mcp-server\\1.0\\computer-mcp-server-1.0.jar"
       ]
+    },
+    "csdn-publish-mcp-server": {
+      "command": "java",
+      "args": [
+        "-Dspring.ai.mcp.server.stdio=true",
+        "-Dfile.encoding=utf-8",
+        "-Dlogging.file.name=./data/mcp/${spring.application.name}.log",
+        "-Dcsdn.api.cookie=${csdn.cookies}",
+        "-Dcsdn.api.categories=java面试宝典",
+        "-jar",
+        "C:\\Users\\Administrator\\.m2\\repository\\com\\jasonlat\\csdn-publish-mcp-server\\1.0\\csdn-publish-mcp-server-1.0.jar"
+      ]
     }
   }
 }

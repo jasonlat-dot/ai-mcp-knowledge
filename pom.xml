@@ -12,6 +12,7 @@
   <modules>
     <module>ai-mcp-knowledge-app</module>
     <module>ai-mcp-knowledge-trigger</module>
+    <module>ai-mcp-knowledge-type</module>
   </modules>
 
   <properties>
@@ -63,6 +64,11 @@
         <version>1.18.26</version>
       </dependency>
 
+      <dependency>
+        <groupId>com.jasonlat</groupId>
+        <artifactId>ai-mcp-knowledge-type</artifactId>
+        <version>1.0</version>
+      </dependency>
     </dependencies>
 
   </dependencyManagement>
