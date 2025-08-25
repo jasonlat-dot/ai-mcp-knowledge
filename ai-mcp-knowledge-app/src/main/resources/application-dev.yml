@@ -49,11 +49,14 @@ spring:
         stdio:
           servers-configuration: classpath:/config/config.json
     openai:
-      base-url: https://apis.itedus.cn/  # chat-gpt
-      api-key: sk-eQ9OYl82ujfFPe682a26F4D0B8534c1281D32d1e724f6aBa  # chat-gpt
+#      base-url: https://apis.itedus.cn/  # chat-gpt
+      base-url: https://dashscope.aliyuncs.com/compatible-mode  # qwen3
+#      api-key: sk-eQ9OYl82ujfFPe682a26F4D0B8534c1281D32d1e724f6aBa  # chat-gpt
+      api-key: your_key  # qwen3
       chat:
         options:
-          model: gpt-4.1-mini
+#          model: gpt-4.1-mini
+          model: qwen-flash
       vector-table-name: vector_store_openai
       embedding:
         options:

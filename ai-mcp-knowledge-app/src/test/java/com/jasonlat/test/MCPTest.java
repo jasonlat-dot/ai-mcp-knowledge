@@ -38,9 +38,9 @@ public class MCPTest {
     /**
      * 需要好的模型
      */
-//    @Resource(name = "openaiChatClient")
+    @Resource(name = "openaiChatClient")
 //    @Resource(name = "glmChatClient")
-    @Resource(name = "ollamaChatClient")
+//    @Resource(name = "ollamaChatClient")
     private ChatClient chatClient;
 
     @Test
