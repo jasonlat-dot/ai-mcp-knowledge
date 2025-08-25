@@ -28,18 +28,20 @@ import java.nio.file.Paths;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
+
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 public class MCPTest {
-
+    /**
+     * 需要好的模型
+     */
 //    @Resource(name = "openaiChatClient")
-    @Resource(name = "glmChatClient")
-//    @Resource(name = "ollamaChatClient")
+//    @Resource(name = "glmChatClient")
+    @Resource(name = "ollamaChatClient")
     private ChatClient chatClient;
-
-    @Autowired
-    private ToolCallbackProvider tools;
 
     @Test
     public void test_tool() {
@@ -150,5 +152,27 @@ public class MCPTest {
 //        countDownLatch.await();
     }
 
+    @Test
+    public void test_weixinNotice_chatMemory() throws IOException {
+
+        String userInput = FileUtils.readFromClasspath("/prompt/Java面试文章生成提示词.md");
+        System.out.println("\n>>> ASSISTANT: " + chatClient
+                .prompt(userInput)
+                .advisors(advisor -> advisor
+                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, "1001")
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
+                .call()
+                .content());
+
+        System.out.println("\n>>> ASSISTANT: " + chatClient
+                .prompt("""
+                         之后进行，微信公众号消息通知，平台：CSDN、主题：为文章标题、描述：为文章简述、跳转地址：从发布文章到CSDN获取 url
+                        """)
+                .advisors(advisor -> advisor
+                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, "1001")
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 100))
+                .call()
+                .content());
+    }
 
 }

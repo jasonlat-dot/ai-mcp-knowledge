@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MCPServerCSDNJob {
 
-    @Resource(name = "glmChatClient")
+    @Resource(name = "openaiChatClient")
     private ChatClient chatClient;
 
     @Scheduled(cron = "0 0 * * * ?")

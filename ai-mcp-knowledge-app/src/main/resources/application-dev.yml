@@ -39,10 +39,6 @@ thread:
         block-queue-size: 5000
         policy: CallerRunsPolicy
 
-csdn:
-  cookies: 'uuid_tt_dd=10_20290684990-1753209489095-887032; fid=20_31381811281-1753209442061-606290; UN=m0_62310006; p_uid=U010000; csdn_newcert_m0_62310006=1; c_dl_prid=-; c_dl_rid=1754235235033_293829; c_dl_fref=https://blog.csdn.net/csdnerM/article/details/136784455; c_dl_fpage=/download/weixin_38682054/12751987; c_dl_um=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-142236198-blog-136784455.235%5Ev43%5Epc_blog_bottom_relevance_base5; creative_btn_mp=3; c_segment=8; dc_sid=0123faae676a263a99fd648f62228e53; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1755949540,1755963493,1755963576,1756006743; HMACCOUNT=90350D62738A95D6; _clck=139wy3g%5E2%5Efyq%5E0%5E2059; c_ab_test=1; yd_captcha_token=MTc1NjAxNjA5ODgxNF8xMjAuMjI2LjI4LjU2X2YyMzNkZDY0Yzg0MDBmOWM3NTUzNTAzOTI4ZTVkMDU4OTkwMA%3D%3D; https_ydclearance=cc06fe9378550d2ee709e5a9-ff3b-403e-baa2-3f509a9e0f35-1756033128; dc_session_id=10_1756025928685.364480; bc_bot_fp=01453adf2f9a8f4d8967afa95855acc6; FCNEC=%5B%5B%22AKsRol8kz72tthqqBmeou4-1OwOeVEUFb7kvqGEHY3_ayAowasTknFy-6Pf6q15sxkTYPvPA99lbCWmJqtbxtlre7FCn0PWX1SHcoGSgSiiX1jyP2mMGHuKmahojC7u8hScAXymnHoQOkHTVhwu7WnpAKihqEeyABw%3D%3D%22%5D%5D; c_first_ref=default; c_first_page=https%3A//blog.csdn.net/m0_62310006/article/details/150701174; c_dsid=11_1756031859368.059056; creativeSetApiNew=%7B%22toolbarImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20230921102607.png%22%2C%22publishSuccessImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20240229024608.png%22%2C%22articleNum%22%3A9%2C%22type%22%3A2%2C%22oldUser%22%3Atrue%2C%22useSeven%22%3Afalse%2C%22oldFullVersion%22%3Atrue%2C%22userName%22%3A%22m0_62310006%22%7D; __gads=ID=fee264c5b112516f:T=1755783435:RT=1756032329:S=ALNI_MY7VIXDAAEa_M8ToJQ7WXOZEBgMeA; __gpi=UID=00001183e64c7543:T=1755783435:RT=1756032329:S=ALNI_MaqzQZCxvVLa85akPGMR4wsa4L2Rg; __eoi=ID=87f6282774d5a9b7:T=1755783435:RT=1756032329:S=AA-AfjbK8v_Jip84jQmol_qV0IDw; SESSION=f5c18dcb-bdfe-4f2a-b21c-602e12142e3e; c_pref=https%3A//blog.csdn.net/m0_62310006/article/details/150701174%3Fspm%3D1001.2014.3001.5501; c_ref=https%3A//blog.csdn.net/m0_62310006%3Ftype%3Dblog; hide_login=1; loginbox_strategy=%7B%22taskId%22%3A317%2C%22abCheckTime%22%3A1756032360551%2C%22version%22%3A%22ExpA%22%2C%22nickName%22%3A%22%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81%22%7D; UserName=m0_62310006; UserInfo=fb433bf2573b41dbb51461c5f062f20d; UserToken=fb433bf2573b41dbb51461c5f062f20d; UserNick=%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81; AU=1E9; BT=1756032376912; c_page_id=default; log_Id_pv=20; bc_bot_session=1756032378b42c3fe45fc2f2bd; waf_captcha_marker=956a30c77efaca4506bec9528ad2733db87ffbd28413ecd5531d0a4169add6da; Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac=1756032378; https_waf_cookie=3e5770f1-728c-4bd039177a5907b9661cda7459905df6276e; log_Id_view=650; _clsk=oyagxf%5E1756032379410%5E4%5E0%5Ei.clarity.ms%2Fcollect;'
-  categories: 'Java面试宝典'
-
 spring:
   main:
     web-application-type: none
@@ -51,7 +47,7 @@ spring:
     mcp:
       client:
         stdio:
-          servers-configuration: classpath:/config/win-mcp-server-config.json
+          servers-configuration: classpath:/config/config.json
     openai:
       base-url: https://apis.itedus.cn/  # chat-gpt
       api-key: sk-eQ9OYl82ujfFPe682a26F4D0B8534c1281D32d1e724f6aBa  # chat-gpt
@@ -86,7 +82,7 @@ spring:
         api-key: c3e3912426c49a7b990280b1d2d235a3.tcgJOlShzn6ba6uk
         base-url: https://open.bigmodel.cn/api/paas
         options:
-          model: GLM-4-Flash-250414
+          model: GLM-4.5-Flash # GLM-4-Flash-250414
           temperature: 0.7  # 设置温度参数
       embedding:
         options:

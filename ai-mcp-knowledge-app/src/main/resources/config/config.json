@@ -1,25 +1,5 @@
 {
   "mcpServers": {
-    "filesystem": {
-      "command": "cmd",
-      "args": [
-        "/c",
-        "npx",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:\\Users\\Administrator\\Desktop",
-        "C:\\Users\\Administrator\\Desktop"
-      ]
-    },
-    "mcp-server-computer": {
-      "command": "java",
-      "args": [
-        "-Dspring.ai.mcp.server.stdio=true",
-        "-Dlogging.file.name=./data/mcp/${spring.application.name}.log",
-        "-jar",
-        "C:\\Users\\Administrator\\.m2\\repository\\com\\jasonlat\\computer-mcp-server\\1.0\\computer-mcp-server-1.0.jar"
-      ]
-    },
     "csdn-publish-mcp-server": {
       "command": "java",
       "args": [
@@ -29,7 +9,7 @@
         "-Dcsdn.api.cookie=uuid_tt_dd=10_20290684990-1753209489095-887032; fid=20_31381811281-1753209442061-606290; UN=m0_62310006; p_uid=U010000; csdn_newcert_m0_62310006=1; c_dl_prid=-; c_dl_rid=1754235235033_293829; c_dl_fref=https://blog.csdn.net/csdnerM/article/details/136784455; c_dl_fpage=/download/weixin_38682054/12751987; c_dl_um=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-142236198-blog-136784455.235%5Ev43%5Epc_blog_bottom_relevance_base5; c_segment=8; dc_sid=0123faae676a263a99fd648f62228e53; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1755949540,1755963493,1755963576,1756006743; HMACCOUNT=90350D62738A95D6; c_ab_test=1; SESSION=f5c18dcb-bdfe-4f2a-b21c-602e12142e3e; loginbox_strategy=%7B%22taskId%22%3A317%2C%22abCheckTime%22%3A1756032360551%2C%22version%22%3A%22ExpA%22%2C%22nickName%22%3A%22%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81%22%7D; UserName=m0_62310006; UserInfo=fb433bf2573b41dbb51461c5f062f20d; UserToken=fb433bf2573b41dbb51461c5f062f20d; UserNick=%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81; AU=1E9; BT=1756032376912; ssxmod_itna=eqIxniitG=DtGQmK0du7tDyDfOxG20k7ndh8uqqGXh6oDZDiqAPGhDC889AoZ2MxfKOWh+0msl7cShfm=WO+GfOxVBhfaNEUDB3DEx0=4NibxiiyDCeDIDWeDiDGR=DFxYoDe1VQDFGkvzlxv8DWKDKx0kDY5DwaYCDYPDWxDF0hR50=gHugxDB6cFNm5YDm4CgZc+P9YDnrizwD5D9x0CDlcKBSxCDDHUMS2sgPMYIf+8oIYDvxDkizH7=4GduPBzvO3bKBmxTBuoji0D=miYej0yqBrKKl04ps/e5Bh4dj2KlDtKlMxDiOGe0XxYD=; ssxmod_itna2=eqIxniitG=DtGQmK0du7tDyDfOxG20k7ndh8uqA6n6mhPD/K9KQDFg2UZPKAPoCejp2HYCgbWWBwPSl=B2IhyYB2yxkXjPLHdCyfgd+6Kqs9W32zcjoj2uC4dlnTFvLu=0FRzojucNZWdqkfkUz3LtqloruSh0SzLvk+jA4u+D2UCq=LwdZfeWRGovzRg6kFknCQlxOUCKbhpwHZW93dZIym8bQprXziTIWoQI53cXyYAWA9qK4e8=0CpGIFT3tL9KEuR36X9oq7Uo+j7Mx3ktPtVIjoeCp6I67/zKvLsSWD7QLD7=Deuq4D; https_waf_cookie=c8d642ce-5f02-4e6ef253317b8c5fc52d78b170350c6bb1c4; tfstk=gUVn-Qm7QJkIpMRBKacCddyUQ4WTOXG7aud-2bnPQco6vHdLz0mzclHrewi8jb4uuyFL2wZiroUVRyE-vlvZl4NpY9grE50zDH7780kl_onM4WHPF5caDqEoFwi-40q8zJQOMsUQRbGPZiCAMhKIAjVn43hrOf8jkvcCMsUQ8qbCCh5YwiYLq4mravkr7Aosr0Rz44-NS4uJYLRU4P7ifquy44oebCuo-3lrauzNS4iZ4bkU4P7iPcorCKLE07yz_gAmZdDQenfI8vm48cA0550EYpaEjQRzsRDn00mMaQPi-zf_P_dcemyjvxnYb1dnZPuuvcEVgCcZn-a-rkfHTXeaCWGL6iYjKumZ35HG3FqmtuD4TAYywXcnjf0agapjX5mL4WDNkID-_SHqTRB1vYhnouPQxUAz0PUYOANlmho7pqGZky1HsjzEzg7vQK5m0QgNy5JWFvusSmUfFZNs5ljoUNbMh8ME5qmASNvWFvusSmQGSKsSLVgmD; https_ydclearance=051f09fde258adb5c47059a3-bedb-4153-93f7-4670219a752f-1756134644; dc_session_id=10_1756127444697.422098; c-sidebar-collapse=0; bc_bot_session=175612744640d787f779b2edc9; creative_btn_mp=3; bc_bot_token=100175612744640d787f779b2edc903ab0d; bc_bot_rules=-; bc_bot_fp=01453adf2f9a8f4d8967afa95855acc6; _clck=139wy3g%5E2%5Efyr%5E0%5E2059; c_first_ref=default; c_first_page=https%3A//www.csdn.net/; c_dsid=11_1756128863702.477852; creativeSetApiNew=%7B%22toolbarImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20230921102607.png%22%2C%22publishSuccessImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20240229024608.png%22%2C%22articleNum%22%3A9%2C%22type%22%3A2%2C%22oldUser%22%3Atrue%2C%22useSeven%22%3Afalse%2C%22oldFullVersion%22%3Atrue%2C%22userName%22%3A%22m0_62310006%22%7D; yd_captcha_token=MTc1NjEyODg3OTA0N18xMjAuMjI2LjI4LjU2XzY4YzcwODY5N2NlNGU2YzFlYzhhOGE3MTlhYTIzNDliMmFiMg%3D%3D; waf_captcha_marker=4bce37c1bf9464ef8d061f04543ecd1354bc31589e8872d6f6bcf5a09c33d4c6; c_pref=https%3A//www.csdn.net/; c_ref=https%3A//blog.csdn.net/m0_62310006%3Ftype%3Dblog; c_page_id=default; log_Id_pv=8; Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac=1756128887; __gads=ID=fee264c5b112516f:T=1755783435:RT=1756128889:S=ALNI_MY7VIXDAAEa_M8ToJQ7WXOZEBgMeA; __gpi=UID=00001183e64c7543:T=1755783435:RT=1756128889:S=ALNI_MaqzQZCxvVLa85akPGMR4wsa4L2Rg; __eoi=ID=87f6282774d5a9b7:T=1755783435:RT=1756128889:S=AA-AfjbK8v_Jip84jQmol_qV0IDw; _clsk=1m4k96c%5E1756128890383%5E5%5E0%5Ei.clarity.ms%2Fcollect; log_Id_view=268; FCNEC=%5B%5B%22AKsRol_XRMW5BhFcstkvXqwBaK98bnStAAoHTWuZMZvYzy-VFJoGZrq-O5xH9Sn6SXIy0i8OAvXUNtg_2vTi5qXApcCSXWvY886R1Qf-7s9y0f87itjThHIiRJKhgGTCY9PEukqTD1aq7ny9IfpHz_ZTd_EOr4uREQ%3D%3D%22%5D%5D; dc_tos=t1jxqb; log_Id_click=11",
         "-Dcsdn.api.categories=java面试宝典",
         "-jar",
-        "C:\\Users\\Administrator\\.m2\\repository\\com\\jasonlat\\csdn-publish-mcp-server\\1.0\\csdn-publish-mcp-server-1.0.jar"
+        "C:\\Users\\Administrator\\.m2\\repository\\com\\jasonlat\\csdn-publish-mcp-server\\1.1\\csdn-publish-mcp-server-1.1.jar"
       ]
     },
     "wexin-push-mcp-server": {

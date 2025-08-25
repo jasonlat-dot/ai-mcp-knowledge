@@ -3,6 +3,9 @@ package com.jasonlat.knowledeg.config;
 import io.micrometer.observation.ObservationRegistry;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.DefaultChatClientBuilder;
+import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
@@ -64,14 +67,24 @@ public class OllamaConfig {
     @Value("${spring.ai.ollama.chat.options.model}")
     private String chatModel;
     @Bean(name = "ollamaChatClient")
-    public ChatClient chatClient(OllamaChatModel ollamaChatModel, ToolCallbackProvider tools) {
+    public ChatClient chatClient(OllamaChatModel ollamaChatModel, ToolCallbackProvider tools, ChatMemory chatMemory) {
         DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(ollamaChatModel, ObservationRegistry.NOOP, null);
         return defaultChatClientBuilder
                 .defaultTools(tools)
+                .defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory))
                 .defaultOptions(OllamaOptions.builder()
                         .model(chatModel)
                         .build())
                 .build();
+    }
+
+
+    /**
+     * 创建一个全部AI通用的默认的ChatMemory
+     */
+    @Bean
+    public ChatMemory chatMemory() {
+        return new InMemoryChatMemory();
     }
 
 

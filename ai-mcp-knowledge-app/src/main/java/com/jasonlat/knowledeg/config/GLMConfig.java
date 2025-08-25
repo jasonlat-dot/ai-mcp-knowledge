@@ -3,6 +3,9 @@ package com.jasonlat.knowledeg.config;
 import io.micrometer.observation.ObservationRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
@@ -39,6 +42,8 @@ public class GLMConfig {
     private String vectorTableName;
 
 
+
+
     @Bean
     public ZhiPuAiApi zhiPuAiApi() {
         log.info("zhiPuAiApi chat baseUrl: {}, apiKey: {}", chatBaseUl, apiKey);
@@ -66,17 +71,18 @@ public class GLMConfig {
     }
 
     @Bean(name = "glmChatClient")
-    public ChatClient glmChatClient(ZhiPuAiChatModel zhiPuAiChatModel, ToolCallbackProvider tools) {
+    public ChatClient glmChatClient(ZhiPuAiChatModel zhiPuAiChatModel, ToolCallbackProvider tools, ChatMemory chatMemory) {
 
         DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(zhiPuAiChatModel, ObservationRegistry.NOOP, null);
         return defaultChatClientBuilder
                .defaultTools(tools)
-
                .defaultOptions(ZhiPuAiChatOptions.builder()
                         .model(glmChatModel)
                         .build())
+//                .defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory))
                .build();
     }
+
 
 
     @Bean
@@ -116,4 +122,5 @@ public class GLMConfig {
                 .vectorTableName(vectorTableName)
                 .build();
     }
+
 }
