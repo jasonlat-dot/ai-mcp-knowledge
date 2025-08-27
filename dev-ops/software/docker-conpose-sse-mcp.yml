@@ -1,0 +1,92 @@
+version: '3.8'
+# docker-compose -f docker-compose-app-v2.0.yml up -d
+services:
+  ai-mcp-knowledge-app:
+    image: crpi-p9u64lqt4sjc5dry.cn-chengdu.personal.cr.aliyuncs.com/jasonlat/ai-mcp-knowledge-app:1.0
+    container_name: ai-mcp-knowledge-app
+    restart: always
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./log:/data/log
+    environment:
+      #      - TZ=PRC
+      - JAVA_OPTS=-Djasypt.encryptor.password=lijiaqiang1024@wt1314520
+      - SERVER_PORT=8088
+      - SPRING_AI_OLLAMA_BASE_URL=http://ollama:11434
+      - SPRING_AI_OLLAMA_CHAT_OPTIONS_MODEL=qwen3:14B
+      - SPRING_AI_OLLAMA_EMBEDDING_OPTIONS_NUM_BATCH=512
+      - SPRING_AI_OLLAMA_MODEL=nomic-embed-text
+      - SPRING_AI_OPENAI_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode
+      - SPRING_AI_OPENAI_API_KEY=sk-382688e6c9184dea8715dfbfdb241355
+      - SPRING_AI_OPENAI_CHAT_OPTIONS_MODEL=qwen-flash
+      - SPRING_AI_OPENAI_EMBEDDING_MODEL=text-embedding-ada-002
+      - SPRING_AI_RAG_EMBED=nomic-embed-text
+      - SPRING_AI_ZHIPUAI_CHAT_BASE_URL=https://open.bigmodel.cn/api/paas
+      - SPRING_AI_ZHIPUAI_CHAT_API_KEY=c3e3912426c49a7b990280b1d2d235a3.tcgJOlShzn6ba6uk
+      - SPRING_AI_ZHIPUAI_CHAT_OPTIONS_MODEL=GLM-4-Flash-250414
+      - SPRING_AI_ZHIPUAI_CHAT_OPTIONS_TEMPERATURE=0.7
+      - SPRING_AI_ZHIPUAI_EMBEDDING_OPTIONS_DIMENSIONS=1024
+      - SPRING_AI_ZHIPUAI_EMBEDDING_MODEL=embedding-3
+      - SPRING_AI_MCP_CLIENT_REQUEST_TIMEOUT=360s
+      - SPRING_AI_MCP_CLIENT_SSE_CONNECTIONS_MCP_SERVER_CSDN_URL=http://mcp-server-csdn-app:8101
+      - SPRING_AI_MCP_CLIENT_SSE_CONNECTIONS_MCP_SERVER_WEIXIN_URL=http://mcp-server-wechat-app:8102
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      - mcp-server-csdn-app
+      - mcp-server-wechat-app
+    networks:
+      - my-network
+
+  mcp-server-csdn-app:
+    image: crpi-p9u64lqt4sjc5dry.cn-chengdu.personal.cr.aliyuncs.com/jasonlat/csdn-publish-mcp-server:1.1
+    container_name: mcp-server-csdn-app
+    restart: always
+    ports:
+      - "8101:8101"
+    volumes:
+      - ./log:/data/log
+    environment:
+      - TZ=PRC
+      - SERVER_PORT=8101
+      - CSDN_API_CATEGORIES=Java场景面试宝典
+      - CSDN_API_COOKIE=uuid_tt_dd=10_20290684990-1753209489095-887032; fid=20_31381811281-1753209442061-606290; UN=m0_62310006; p_uid=U010000; csdn_newcert_m0_62310006=1; c_dl_prid=-; c_dl_rid=1754235235033_293829; c_dl_fref=https://blog.csdn.net/csdnerM/article/details/136784455; c_dl_fpage=/download/weixin_38682054/12751987; c_dl_um=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-142236198-blog-136784455.235%5Ev43%5Epc_blog_bottom_relevance_base5; c_ab_test=1; loginbox_strategy=%7B%22taskId%22%3A317%2C%22abCheckTime%22%3A1756032360551%2C%22version%22%3A%22ExpA%22%2C%22nickName%22%3A%22%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81%22%7D; UserName=m0_62310006; UserInfo=fb433bf2573b41dbb51461c5f062f20d; UserToken=fb433bf2573b41dbb51461c5f062f20d; UserNick=%E6%B5%81%E5%B9%B4%E6%9F%93%E6%8C%87%E6%82%B2%E4%BC%A4%E3%80%81; AU=1E9; BT=1756032376912; Hm_lvt_e5ef47b9f471504959267fd614d579cd=1756129400; ssxmod_itna=YqjhAKDKBKYKD5P0dD==Ok1Y6xY5GOl4ZAmKtU8DBLgi4iNDnD8x7YDvmAEzbtTG32wPLWD47XFUKj8i4pzzD8a+f7mDB3DEx0=iqtZi4GG0xBYDQxAYDGDDPCDj4ibDY+tODjnz/Zl61KDpxGrDlKDRx0749KDbxDaDGak3ii46xgF0pDDBpDAxO5WDmbk96P+4fYDnx+1=nikD75Dux0H5CdIDD5USIDs9Z8jmUROK8YDvxDk=bHH34Gd0g5zmrSoWBmoVQ075n4YiWb4GiGo=0DPPiUoGihgzG0xZGp3bmDDiE/PVnGDD; ssxmod_itna2=YqjhAKDKBKYKD5P0dD==Ok1Y6xY5GOl4ZAmKt8D8T6h7DGXKfwxGatAj58fhojxApkdGEkA6+Dr9A2NhGjrD9xhe=8cF5fip+PgnwrslZS2K8xxd3Bc4rNpZcfYZBt7n6v2xMFinPh9s9iIsD4T4XpKQqIA52GvFeRAtyiFizjwFiIg=50758Fnsatgsrp7qoD3iotcsOIBpqCTfibL=tRYUo/giSmfTqaa+Wjd0o6d2oNW6IRM+=vds0tZAiN8q28fdTyG8qpBG/IhcGIobOX0nuI7fGHtbmXmpGbHWX9w+f43kA1gyRb9mwFeFDweV/ws+b9lu=QK6zG=lDe9xYzG5YwBiwXQmFS7FYHFzc4ZRG74BeqclTaUnrDRAF4iCEiFyF4RbWpouEL7meVuVlgkfHi/OAUOTzTIYvqNm46+TNBDFv1zSimYb1AeoyZn2DhbdxpBexunOiA0MAeWF3w7uPdLiA0=/91jDsAwCZbbNkiNYPRwT+5OVm9GRS3n7c2FK07gB8i5PF5Y/WtebpoG3D07L4DLxD2bGDD==; tfstk=gHJZHjDcAAHaVszICeB4zDef7iBOgtuWnK_fmnxcfNbiMET4uw8YCKtXmIy22wd1cs61ieSRm-fDhZ9q0OpB1-_sWt-DPtuSPYMWXhCdn4gWmptxEtjmhZcCsbaUkqgSPYMQt4VI24TXrCwMxiQhjib0nD7hcw2cmEbGtyjP2tbDoEbHxgIasi2ci92hJiXcoEXmYHbd0tbDotmexAwyndyF71mn_QPvwXuldaxG8-2z2G5gthPbn-vFb1JDjwR2gpSN_afm3VVpIetDCdCKOWBvAQ82iEh79O-DsOjWXAyFEhAB3M9jcS7MWp-HL6r7F1Rc0_XcTo2DYOdFZpXoEySpthODBFr4nGp6Fs7RTm2AG9v5ZQYaD0KhIiYAwKg8BNxD2Ld5UvNGEHRDzISyyrInoMJv_rVVsMIFPDoF8gKHMB84OyFYM6mdYair4SFAsMIFPDoUMSCHJM7S405..; FCNEC=%5B%5B%22AKsRol_SsRPnhigZ90r8uJEi7P5wdEhCmnlvaNJAYVRPXn0srnpN6xs0HZurJY3ZJvyJuRjSTj_jGe5gZ8ubr2NYCacdrHGDIj2s6ULnLGGV88dbRVT2JrijYPhyE1IavNhg1oKDlPqT50e_S3ppcsyKGHxQ90TpjA%3D%3D%22%5D%5D; c_segment=8; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1755963493,1755963576,1756006743,1756207705; HMACCOUNT=90350D62738A95D6; _clck=139wy3g%5E2%5Efys%5E0%5E2059; dc_sid=4e4ab0674834fdfb41fc250c72343cfa; SESSION=bbbd871a-4a3b-4446-a425-0e47f0a1b244; c_first_ref=cn.bing.com; dc_session_id=10_1756219788102.351755; c-sidebar-collapse=0; bc_bot_fp=01453adf2f9a8f4d8967afa95855acc6; __gads=ID=fee264c5b112516f:T=1755783435:RT=1756219801:S=ALNI_MY7VIXDAAEa_M8ToJQ7WXOZEBgMeA; __gpi=UID=00001183e64c7543:T=1755783435:RT=1756219801:S=ALNI_MaqzQZCxvVLa85akPGMR4wsa4L2Rg; __eoi=ID=87f6282774d5a9b7:T=1755783435:RT=1756219801:S=AA-AfjbK8v_Jip84jQmol_qV0IDw; c_first_page=https%3A//blog.csdn.net/Likewind_/article/details/148292952; c_dsid=11_1756220070531.182327; creative_btn_mp=3; https_waf_cookie=d9b0f9bf-fb9f-448f32a9333f8c59ba858ee4e2113bd90291; bc_bot_session=1756220569181deed8f641cf50; c_pref=https%3A//cn.bing.com/; c_ref=https%3A//www.csdn.net/; c_page_id=default; log_Id_pv=5; Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac=1756220568; waf_captcha_marker=f7c651236a8d1f979e70c9ff5b32237fc7656a6806314dcc91bcbd6718ca57f3; bc_bot_token=1001756220569181deed8f641cf501f6818; bc_bot_rules=-; creativeSetApiNew=%7B%22toolbarImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20230921102607.png%22%2C%22publishSuccessImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20240229024608.png%22%2C%22articleNum%22%3A16%2C%22type%22%3A2%2C%22oldUser%22%3Atrue%2C%22useSeven%22%3Afalse%2C%22oldFullVersion%22%3Atrue%2C%22userName%22%3A%22m0_62310006%22%7D; _clsk=12mfm21%5E1756220570662%5E1%5E0%5Ei.clarity.ms%2Fcollect; yd_captcha_token=MTc1NjIyMDU3MzU5OV8xMjAuMjI2LjI4LjU2Xzg4ZjM4M2NhYmE5YzNkMDk3NzA0OTY0MWMzNGJkOGYwNzg2Mw%3D%3D; log_Id_view=195; dc_tos=t1lwhh; log_Id_click=8
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - my-network
+
+  mcp-server-wechat-app:
+    image: crpi-p9u64lqt4sjc5dry.cn-chengdu.personal.cr.aliyuncs.com/jasonlat/wechat-push-mcp-server:1.1
+    container_name: mcp-server-wechat-app
+    restart: always
+    ports:
+      - "8102:8102"
+    volumes:
+      - ./log:/data/log
+    environment:
+      - TZ=PRC
+      - SERVER_PORT=8102
+      - wechat_API_ORIGINAL_ID=gh_19674398cb20
+      - wechat_API_APPID=wxae5eccc3b6930993
+      - wechat_API_APPSECRET=8fdec049feb30865cc9bb0e1c0b7dad3
+      - wechat_API_TEMPLATE_ID=PhVVqJwyMustdEa2RKMRgl4mU4ZJgdm5hPtsDIns8ms
+      - wechat_API_TOUSER=oxd-l6lb0KOF5KRwBy7GDHxeXaeE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

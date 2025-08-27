@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
@@ -17,6 +18,7 @@ import org.springframework.ai.zhipuai.ZhiPuAiEmbeddingModel;
 import org.springframework.ai.zhipuai.ZhiPuAiImageModel;
 import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
 import org.springframework.ai.zhipuai.api.ZhiPuAiImageApi;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,7 +73,7 @@ public class GLMConfig {
     }
 
     @Bean(name = "glmChatClient")
-    public ChatClient glmChatClient(ZhiPuAiChatModel zhiPuAiChatModel, ToolCallbackProvider tools, ChatMemory chatMemory) {
+    public ChatClient glmChatClient(ZhiPuAiChatModel zhiPuAiChatModel, @Qualifier("syncMcpToolCallbackProvider") SyncMcpToolCallbackProvider tools, ChatMemory chatMemory) {
 
         DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(zhiPuAiChatModel, ObservationRegistry.NOOP, null);
         return defaultChatClientBuilder

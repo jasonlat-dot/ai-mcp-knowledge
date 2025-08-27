@@ -1,6 +1,6 @@
 #file: noinspection SpringBootApplicationYaml
 server:
-  port: 8087
+  port: 8090
   tomcat:
     threads:
       max: 200        # 设定处理客户请求的线程的最大数目，决定了服务器可以同时响应客户请求的数,默认200
@@ -40,18 +40,25 @@ thread:
         policy: CallerRunsPolicy
 
 spring:
-  main:
-    web-application-type: none
+#  main:
+#    web-application-type: none
   # ollama ai
   ai:
     mcp:
       client:
-        stdio:
-          servers-configuration: classpath:/config/config.json
+        request-timeout: 360s
+        sse:
+          connections:
+            mcp-server-csdn:
+              url: http://127.0.0.1:8101
+            mcp-server-wechat:
+              url: http://127.0.0.1:8102
+#        stdio:
+#          servers-configuration: classpath:/config/config.json
     openai:
 #      base-url: https://apis.itedus.cn/  # chat-gpt
       base-url: https://dashscope.aliyuncs.com/compatible-mode  # qwen3
-#      api-key: sk-eQ9OYl82ujfFPe682a26F4D0B8534c1281D32d1e724f6aBa  # chat-gpt
+#      api-key: your_key-  # chat-gpt
       api-key: your_key  # qwen3
       chat:
         options:
@@ -138,5 +145,9 @@ jq1024:
 
 logging:
   level:
+    # 可选：让 Spring AI MCP 客户端本身的日志级别为 DEBUG（查看底层通信细节）
+    org.springframework.ai.mcp: DEBUG
+    # 可选：让 WebFlux 客户端的日志级别为 DEBUG（查看 HTTP 长连接细节）
+    org.springframework.web.reactive.function.client: DEBUG
     root: info
   config: classpath:logback-spring.xml

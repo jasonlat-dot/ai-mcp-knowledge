@@ -1,12 +1,14 @@
 package com.jasonlat.knowledeg.config;
 
 import io.micrometer.observation.ObservationRegistry;
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.DefaultChatClientBuilder;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.observation.ChatClientObservationConvention;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
@@ -16,6 +18,7 @@ import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,13 +78,13 @@ public class OpenAIConfig {
     @Value("${spring.ai.openai.chat.options.model}")
     private String chatModel;
     @Bean(name = "openaiChatClient")
-    public ChatClient chatClient(OpenAiChatModel openAiChatModel, ToolCallbackProvider tools, ChatMemory chatMemory) {
+    public ChatClient chatClient(OpenAiChatModel openAiChatModel, @Qualifier("syncMcpToolCallbackProvider")ToolCallbackProvider toolCallbackProvider, ChatMemory chatMemory) {
         DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(openAiChatModel, ObservationRegistry.NOOP, null);
         return defaultChatClientBuilder
-                .defaultTools(tools)
-                .defaultOptions(OpenAiChatOptions.builder()
-                        .model(chatModel)
-                        .build())
+                .defaultTools(toolCallbackProvider)
+//                .defaultOptions(OpenAiChatOptions.builder()
+//                        .model(chatModel)
+//                        .build())
                 .defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory))
                 .build();
     }

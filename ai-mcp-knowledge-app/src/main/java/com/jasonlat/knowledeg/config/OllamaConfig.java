@@ -6,6 +6,7 @@ import org.springframework.ai.chat.client.DefaultChatClientBuilder;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.OllamaEmbeddingModel;
 import org.springframework.ai.ollama.api.OllamaApi;
@@ -13,6 +14,7 @@ import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +69,7 @@ public class OllamaConfig {
     @Value("${spring.ai.ollama.chat.options.model}")
     private String chatModel;
     @Bean(name = "ollamaChatClient")
-    public ChatClient chatClient(OllamaChatModel ollamaChatModel, ToolCallbackProvider tools, ChatMemory chatMemory) {
+    public ChatClient chatClient(OllamaChatModel ollamaChatModel, @Qualifier("syncMcpToolCallbackProvider")SyncMcpToolCallbackProvider tools, ChatMemory chatMemory) {
         DefaultChatClientBuilder defaultChatClientBuilder = new DefaultChatClientBuilder(ollamaChatModel, ObservationRegistry.NOOP, null);
         return defaultChatClientBuilder
                 .defaultTools(tools)
